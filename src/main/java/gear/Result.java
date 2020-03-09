@@ -103,8 +103,9 @@ class Result {
 
 
     void allWriteJson (String fileName, int systemLength, int j) throws IOException{
-        Writer decorWriter = null;
-        try {decorWriter = new BufferedWriter(new FileWriter(fileName, true));
+
+        try (Writer decorWriter = new BufferedWriter(new FileWriter(fileName, true)))
+        {
             //zapisuje w json glowna klase i odwoluje sie do writeFile
             if (j == 0){
                 decorWriter.append("{");
@@ -124,17 +125,14 @@ class Result {
         catch (Exception e){
             System.out.println("error in allWriteJson"+e);
         }
-        finally {
-            if ( decorWriter!= null){
-                decorWriter.close();
-            }
-        }
+
     }
 
     private void writeFile(String fileName, int systemLength, int j) throws IOException {
 
-        Writer writer = null;
-        try  { writer = new BufferedWriter(new FileWriter(fileName, true));
+
+        try  (Writer writer = new BufferedWriter(new FileWriter(fileName, true)))
+        {
 
             //zapisuje bledy
             writer.append("\n"+repeatString(indent,2)+"{");
@@ -181,11 +179,7 @@ class Result {
         catch (Exception e){
             System.err.println("error in writeFile" + e);
         }
-        finally {
-            if (writer != null){
-                writer.close();
-            }
-        }
+
     }
 
     private String repeatString(String s,int count){
