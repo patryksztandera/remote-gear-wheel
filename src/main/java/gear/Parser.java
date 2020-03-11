@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.json.*;
+import java.util.Collections;
+import java.io.*;
+import javax.json.stream.*;
 
 class Parser {
 
@@ -33,6 +37,18 @@ class Parser {
         List<String> lines = Files.readAllLines(inputPath);
         valuesList = new ArrayList<>();
         gearsSizes = new ArrayList<>();
+
+        JsonReaderFactory readerFactory = Json.createReaderFactory(Collections.emptyMap());
+        try (JsonReader jsonReader = readerFactory.createReader(new FileInputStream(inputPathFile))) {
+            //JsonStructure jsonStructure = jsonReader.read();
+            //System.out.println(jsonStructure.getValue("/uklady/0/rolki"));
+            JsonObject jsonObject = jsonReader.readObject();
+            int t = jsonObject.getJsonArray("uklady")
+                    .get(8).asJsonObject()
+                    .getJsonArray(regexRoller)
+                    .size();
+            System.out.println(t);
+        }
 
         Pattern patternDrive = Pattern.compile(regexDrive);
         Pattern patternRoller = Pattern.compile(regexRoller);
