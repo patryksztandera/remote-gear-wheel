@@ -9,6 +9,8 @@ class Gear {
      double velocity;
      String direction;
 
+     Gear(){}
+
      Gear(double coordinateX, double coordinateY, double bottomRadius, double topRadius)
      {
             this.coordinateX = coordinateX;

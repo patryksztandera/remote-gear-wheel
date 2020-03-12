@@ -28,6 +28,9 @@ class Parser {
     private String bottomRadius;
     private String topRadius;
     private String velocity;
+    private String arrayOfGears;
+
+    //private int arraySize;
 
     Parser(){}
 
@@ -37,18 +40,8 @@ class Parser {
         List<String> lines = Files.readAllLines(inputPath);
         valuesList = new ArrayList<>();
         gearsSizes = new ArrayList<>();
+        arrayOfGears = "uklady";
 
-        JsonReaderFactory readerFactory = Json.createReaderFactory(Collections.emptyMap());
-        try (JsonReader jsonReader = readerFactory.createReader(new FileInputStream(inputPathFile))) {
-            //JsonStructure jsonStructure = jsonReader.read();
-            //System.out.println(jsonStructure.getValue("/uklady/0/rolki"));
-            JsonObject jsonObject = jsonReader.readObject();
-            int t = jsonObject.getJsonArray("uklady")
-                    .get(8).asJsonObject()
-                    .getJsonArray(regexRoller)
-                    .size();
-            System.out.println(t);
-        }
 
         Pattern patternDrive = Pattern.compile(regexDrive);
         Pattern patternRoller = Pattern.compile(regexRoller);
@@ -163,6 +156,40 @@ class Parser {
                 gearsSizes.add(counter);
             }
         }
+
+
+
+
+    }
+
+    Gear[] gears(int gearFromArray) throws IOException{
+
+        int arraySize;
+
+        JsonReaderFactory readerFactory = Json.createReaderFactory(Collections.emptyMap());
+        try (JsonReader jsonReader = readerFactory.createReader(new FileInputStream(inputPathFile))) {
+
+            JsonObject jsonObject = jsonReader.readObject();
+            arraySize = jsonObject.getJsonArray(arrayOfGears)
+                    .get(gearFromArray).asJsonObject()
+                    .getJsonArray(regexRoller)
+                    .size();
+        }
+
+        arraySize++;
+        Gear[] gear = new Gear[arraySize];
+
+        gear[0] = drive(gearFromArray);
+
+
+
+        for (int i = 1; i < arraySize; i++){
+            int k = i - 1;
+            gear[i] = arrayWithoutDrive(gearFromArray,k);
+            System.out.println(gear[i].coordinateX);
+        }
+
+        return gear;
     }
 
     private void findOneLineRoller(List<String> lines, List<Integer> valuesList, Pattern patternLine, int z){
@@ -204,6 +231,85 @@ class Parser {
         }
     }
 
+    Gear arrayWithoutDrive(int gearFromArray, int i)throws IOException{
+
+
+
+
+        Gear gear;
+
+
+            JsonReaderFactory readerArray = Json.createReaderFactory(Collections.emptyMap());
+            try (JsonReader jsonReader = readerArray.createReader(new FileInputStream(inputPathFile))) {
+
+                JsonObject jsonObject = jsonReader.readObject();
+                int cX = jsonObject.getJsonArray(arrayOfGears)
+                        .get(gearFromArray).asJsonObject()
+                        .getJsonArray(regexRoller)
+                        .get(i).asJsonObject()
+                        .getInt(coordinateX);
+                int cY = jsonObject.getJsonArray(arrayOfGears)
+                        .get(gearFromArray).asJsonObject()
+                        .getJsonArray(regexRoller)
+                        .get(i).asJsonObject()
+                        .getInt(coordinateY);
+                int bottomR = jsonObject.getJsonArray(arrayOfGears)
+                        .get(gearFromArray).asJsonObject()
+                        .getJsonArray(regexRoller)
+                        .get(i).asJsonObject()
+                        .getInt(bottomRadius);
+                int topR = jsonObject.getJsonArray(arrayOfGears)
+                        .get(gearFromArray).asJsonObject()
+                        .getJsonArray(regexRoller)
+                        .get(i).asJsonObject()
+                        .getInt(topRadius);
+
+                gear = new Gear(cX,cY,bottomR,topR);
+
+        }
+
+        return gear;
+    }
+
+    Gear drive(int gearFromArray)throws IOException{
+
+
+        Gear gear ;
+
+        JsonReaderFactory readerArray = Json.createReaderFactory(Collections.emptyMap());
+        try (JsonReader jsonReader = readerArray.createReader(new FileInputStream(inputPathFile))) {
+
+            JsonObject jsonObject = jsonReader.readObject();
+            int cX = jsonObject.getJsonArray(arrayOfGears)
+                    .get(gearFromArray).asJsonObject()
+                    .getJsonObject(regexDrive)
+                    .getInt(coordinateX);
+            int cY = jsonObject.getJsonArray(arrayOfGears)
+                    .get(gearFromArray).asJsonObject()
+                    .getJsonObject(regexDrive)
+                    .getInt(coordinateY);
+            int bottomR = jsonObject.getJsonArray(arrayOfGears)
+                    .get(gearFromArray).asJsonObject()
+                    .getJsonObject(regexDrive)
+                    .getInt(bottomRadius);
+            int topR = jsonObject.getJsonArray(arrayOfGears)
+                    .get(gearFromArray).asJsonObject()
+                    .getJsonObject(regexDrive)
+                    .getInt(topRadius);
+
+                int v = jsonObject.getJsonArray(arrayOfGears)
+                        .get(gearFromArray).asJsonObject()
+                        .getJsonObject(regexDrive)
+                        .getInt(velocity);
+                gear = new Gear(cX,cY,bottomR,topR,v);
+
+
+
+        }
+
+        return gear;
+    }
+
     void setInputPathFile(String inputPathFile){
         this.inputPathFile = inputPathFile;
     }
@@ -243,4 +349,5 @@ class Parser {
     List<Integer> getListOfSizes(){
         return gearsSizes;
     }
+
 }
