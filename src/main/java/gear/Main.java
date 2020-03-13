@@ -1,24 +1,33 @@
 package gear;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import javax.json.JsonReaderFactory;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
+
 
 
 
 public class Main {
 
-    public static void main(String[] args) throws IOException
-    {
-        String fileName = "daneWyjscioweTest.json";
-        PrintWriter clear = new PrintWriter(fileName);
-        clear.close(); // czyszczenie pliku
+    public static void main(String[] args) throws IOException {
+
+        String inputFilePath = "daneWejsciowe.json";
+        String outputFilePath = "daneWyjscioweTest.json";
+        PrintWriter clearFile = new PrintWriter(outputFilePath);
+        clearFile.close();
+
+        String arrayOfGears = "uklady";
 
         Parser parse = new Parser();
 
-        parse.setInputPathFile("daneWejsciowe.json");
+        parse.setInputPathFile(inputFilePath);
 
+        parse.setArrayOfGears(arrayOfGears);
         parse.setRegexDrive("naped");
         parse.setRegexRoller("rolki");
 
@@ -28,16 +37,20 @@ public class Main {
         parse.setTopRadius("rg");
         parse.setVelocity("n");
 
-        parse.json();
+        int arraySize;
 
-        List<Integer> systemSize = new ArrayList<>(parse.getListOfSizes()); //lista rozmiarow tablic kol zebatych
+        JsonReaderFactory readerFactory = Json.createReaderFactory(Collections.emptyMap());
+        try (JsonReader jsonReader = readerFactory.createReader(new FileInputStream(inputFilePath))) {
 
-        for (int i = 0; i<systemSize.size();i++)
-        {
+            JsonObject jsonObject = jsonReader.readObject();
+            arraySize = jsonObject.getJsonArray(arrayOfGears).size();
+        }
+
+        for (int i = 0; i<arraySize; i++) {
+
             Result result = new Result();
             result.check(parse.gears(i));
-
-            result.allWriteJson(fileName,systemSize.size(),i);
+            result.allWriteJson(outputFilePath,arraySize,i);
         }
     }
 }

@@ -9,18 +9,16 @@ class Gear {
      double velocity;
      String direction;
 
-     Gear(){}
+     Gear(double coordinateX, double coordinateY, double bottomRadius, double topRadius) {
 
-     Gear(double coordinateX, double coordinateY, double bottomRadius, double topRadius)
-     {
             this.coordinateX = coordinateX;
             this.coordinateY = coordinateY;
             this.bottomRadius = bottomRadius;
             this.topRadius = topRadius;
      }
 
-     Gear(double coordinateX, double coordinateY, double bottomRadius, double topRadius, double velocity)
-     {
+     Gear(double coordinateX, double coordinateY, double bottomRadius, double topRadius, double velocity) {
+
             this.coordinateX = coordinateX;
             this.coordinateY = coordinateY;
             this.bottomRadius = bottomRadius;
@@ -38,13 +36,7 @@ class Gear {
             }
      }
 
-     void setVelocity(double velocity)
-        {
-            this.velocity = velocity;
-        }
+     void setVelocity(double velocity) { this.velocity = velocity; }
 
-     void setDirection(String direction)
-        {
-            this.direction = direction;
-        }
+     void setDirection(String direction) { this.direction = direction; }
 }
