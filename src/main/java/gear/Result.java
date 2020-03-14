@@ -189,4 +189,12 @@ class Result {
         }
         return r.toString();
     }
+
+    public String getError1() {
+        return error1;
+    }
+
+    public String getError2() {
+        return error2;
+    }
 }
