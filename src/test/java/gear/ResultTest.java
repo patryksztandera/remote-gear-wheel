@@ -53,4 +53,6 @@ public class ResultTest {
 
         assertEquals("nakladajace sie tarcze",result.getError1());
     }
+
+
 }
