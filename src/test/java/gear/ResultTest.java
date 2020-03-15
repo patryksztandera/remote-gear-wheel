@@ -8,13 +8,13 @@ public class ResultTest {
     @Test
     public void shouldReturnVelocity(){
         Gear[] gear = new Gear[2];
-        gear[0] = new Gear(20,30,10,15,150);
-        gear[1] = new Gear(50,30,20,5);
+        gear[0] = new Gear(50,80,20,2,150);
+        gear[1] = new Gear(90,50,30,20);
 
         Result result = new Result();
         result.check(gear);
 
-        assertEquals(75,gear[1].velocity,0);
+        assertEquals(100,gear[1].velocity,0);
         assertEquals("L",gear[1].direction);
     }
 
@@ -39,7 +39,7 @@ public class ResultTest {
         Result result = new Result();
         result.check(gear);
 
-        assertEquals("konflikt predkosci obrotowych rolek",result.getError2());
+        assertEquals("konflikt predkosci obrotowych rolek",result.getErrorVelocity());
     }
 
     @Test
@@ -51,8 +51,6 @@ public class ResultTest {
         Result result = new Result();
         result.check(gear);
 
-        assertEquals("nakladajace sie tarcze",result.getError1());
+        assertEquals("nakladajace sie tarcze",result.getErrorOverlapping());
     }
-
-
 }

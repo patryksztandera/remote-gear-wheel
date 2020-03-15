@@ -9,8 +9,8 @@ class Result {
 
     private Gear[] gears;
     private int test;
-    private String error1;
-    private String error2;
+    private String errorOverlapping;
+    private String errorVelocity;
     private String indent = "  "; //2 spaces
 
     Result() {}
@@ -60,7 +60,7 @@ class Result {
 
                     if (velocityRatio != ratioD) {
                         test = 1;
-                        error2 = "konflikt predkosci obrotowych rolek";
+                        errorVelocity = "konflikt predkosci obrotowych rolek";
                     }
                 }
                 if (sumTopRadius(i,j) == distance(i,j)) {
@@ -74,12 +74,12 @@ class Result {
 
                     if (velocityRatio != ratioG) {
                         test = 1;
-                        error2 = "konflikt predkosci obrotowych rolek";
+                        errorVelocity = "konflikt predkosci obrotowych rolek";
                     }
                 }
                 if (sumBottomRadius(i, j) > distance(i, j) || sumTopRadius(i, j) > distance(i, j)) {
                     test = 1;
-                    error1 = "nakladajace sie tarcze";
+                    errorOverlapping = "nakladajace sie tarcze";
                 }
             }
         }
@@ -137,10 +137,10 @@ class Result {
             //zapisuje bledy
             writer.append("\n"+repeatString(indent,2)+"{");
             if (test != 0) {
-                if (error1 != null) {
-                    writer.append("\n"+repeatString(indent,3)+"\"blad\": \""+error1+"\"");
-                } else if (error2 != null) {
-                    writer.append("\n"+repeatString(indent,3)+"\"blad\": \""+error2+"\"");
+                if (errorOverlapping != null) {
+                    writer.append("\n"+repeatString(indent,3)+"\"blad\": \""+errorOverlapping+"\"");
+                } else if (errorVelocity != null) {
+                    writer.append("\n"+repeatString(indent,3)+"\"blad\": \""+errorVelocity+"\"");
                 }
             }
             // zapisuje obiekt z tablica rolek (kierunki i predkosci lub ostrzezenie)
@@ -190,11 +190,11 @@ class Result {
         return r.toString();
     }
 
-    public String getError1() {
-        return error1;
+    String getErrorOverlapping() {
+        return errorOverlapping;
     }
 
-    public String getError2() {
-        return error2;
+    String getErrorVelocity() {
+        return errorVelocity;
     }
 }

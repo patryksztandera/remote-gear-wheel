@@ -36,7 +36,6 @@ class Parser {
         }
 
         arraySize++;
-
         Gear[] gear = new Gear[arraySize];
         gear[0] = drive(gearFromArray);
 
@@ -100,7 +99,7 @@ class Parser {
                     jsonObject.getJsonArray(arrayOfGears)
                             .get(gearFromArray).asJsonObject()
                             .getJsonObject(regexDrive)
-                            .getInt(coordinateX),
+                            .getInt(coordinateY),
                     jsonObject.getJsonArray(arrayOfGears)
                             .get(gearFromArray).asJsonObject()
                             .getJsonObject(regexDrive)
