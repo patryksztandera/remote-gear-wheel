@@ -17,7 +17,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         String inputFilePath = "daneWejsciowe.json";
-        String outputFilePath = "daneWyjscioweTest.json";
+        String outputFilePath = "daneWyjsciowe.json";
         PrintWriter clearFile = new PrintWriter(outputFilePath);
         clearFile.close();
 
