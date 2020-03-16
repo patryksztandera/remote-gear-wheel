@@ -104,8 +104,8 @@ class Result {
 
     void allWriteJson (String fileName, int systemLength, int j) throws IOException{
 
-        try (Writer decorWriter = new BufferedWriter(new FileWriter(fileName, true)))
-        {
+        try (Writer decorWriter = new BufferedWriter(new FileWriter(fileName, true))) {
+
             //zapisuje w json glowna klase i odwoluje sie do writeFile
             if (j == 0){
                 decorWriter.append("{");
@@ -131,8 +131,7 @@ class Result {
     private void writeFile(String fileName, int systemLength, int j) throws IOException {
 
 
-        try  (Writer writer = new BufferedWriter(new FileWriter(fileName, true)))
-        {
+        try  (Writer writer = new BufferedWriter(new FileWriter(fileName, true))) {
 
             //zapisuje bledy
             writer.append("\n"+repeatString(indent,2)+"{");
