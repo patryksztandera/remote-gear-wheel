@@ -19,6 +19,7 @@ class Result {
 
         this.gears = gears;
 
+        //count velocity and set value of direction
         for (int i = 0; i < gears.length - 1; i++) {
             for (int j = i + 1; j < gears.length; j++) {
 
@@ -39,11 +40,12 @@ class Result {
                     }
                 }
                 if (gears[j].direction == null) {
-                    gears[j].setDirection("rolka w spoczynku");
+                    gears[j].setDirection("rolka w spoczynku"); //roll at rest
                 }
             }
         }
 
+        //if gear is incorrect set info about error
         for (int i = 0; i < gears.length - 1; i++) {
             for (int j = i + 1; j < gears.length; j++) {
 
@@ -100,16 +102,14 @@ class Result {
         return gears[i].topRadius + gears[j].topRadius;
     }
 
-
-
+    //method to create outer class in json file which contains table of gears
     void allWriteJson (String fileName, int systemLength, int j) throws IOException{
 
         try (Writer decorWriter = new BufferedWriter(new FileWriter(fileName, true))) {
 
-            //zapisuje w json glowna klase i odwoluje sie do writeFile
             if (j == 0){
                 decorWriter.append("{");
-                decorWriter.append("\n"+repeatString(indent,1)+"\"uklady\": [");
+                decorWriter.append("\n"+repeatString(indent,1)+"\"uklady\": ["); //"gears":
                 decorWriter.flush();
             }
 
@@ -133,16 +133,17 @@ class Result {
 
         try  (Writer writer = new BufferedWriter(new FileWriter(fileName, true))) {
 
-            //zapisuje bledy
+            //show error message in json file
             writer.append("\n"+repeatString(indent,2)+"{");
             if (test != 0) {
                 if (errorOverlapping != null) {
-                    writer.append("\n"+repeatString(indent,3)+"\"blad\": \""+errorOverlapping+"\"");
+                    writer.append("\n"+repeatString(indent,3)+"\"blad\": \""+errorOverlapping+"\""); //"error":
                 } else if (errorVelocity != null) {
-                    writer.append("\n"+repeatString(indent,3)+"\"blad\": \""+errorVelocity+"\"");
+                    writer.append("\n"+repeatString(indent,3)+"\"blad\": \""+errorVelocity+"\""); //"error":
                 }
             }
-            // zapisuje obiekt z tablica rolek (kierunki i predkosci lub ostrzezenie)
+
+            // create gear table with velocity and direction of each roll or show warning "roll at rest"
             else {
                 writer.append("\n"+repeatString(indent,3)+"\"rolki\": [");
 
@@ -155,7 +156,7 @@ class Result {
                     } else {
                         writer.append("\n"+repeatString(indent,4)+"{ ");
                         writer.append("\n"+repeatString(indent,5)+ "\"ostrzezenie\": \""
-                                +gears[i].direction+"\"");
+                                +gears[i].direction+"\""); //"warning":
                     }
 
                     if (i == gears.length-1){

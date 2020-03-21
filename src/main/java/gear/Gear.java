@@ -26,13 +26,13 @@ class Gear {
             this.velocity = velocity;
 
             if (velocity>0){
-                this.direction = "R";
+                this.direction = "R"; //right
             }
             else if (velocity<0){
-                this.direction = "L";
+                this.direction = "L"; //left
             }
             else {
-                this.direction = "rolka w spoczynku";
+                this.direction = "rolka w spoczynku"; //roll at rest (velocity = 0)
             }
      }
 

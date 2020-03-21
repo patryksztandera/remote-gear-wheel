@@ -36,6 +36,8 @@ class Parser {
         }
 
         arraySize++;
+
+        //create gear table with first drive roll and other rolls which should be driven by the first one
         Gear[] gear = new Gear[arraySize];
         gear[0] = drive(gearFromArray);
 
