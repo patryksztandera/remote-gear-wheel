@@ -27,7 +27,7 @@ public class ResultTest {
         Result result = new Result();
         result.check(gear);
 
-        assertEquals("rolka w spoczynku",gear[1].direction);
+        assertEquals("roller at rest",gear[1].direction);
     }
 
     @Test
@@ -39,7 +39,7 @@ public class ResultTest {
         Result result = new Result();
         result.check(gear);
 
-        assertEquals("konflikt predkosci obrotowych rolek",result.getErrorVelocity());
+        assertEquals("roller velocity conflict",result.getErrorVelocity());
     }
 
     @Test
@@ -51,6 +51,6 @@ public class ResultTest {
         Result result = new Result();
         result.check(gear);
 
-        assertEquals("nakladajace sie tarcze",result.getErrorOverlapping());
+        assertEquals("overlapping wheels",result.getErrorOverlapping());
     }
 }

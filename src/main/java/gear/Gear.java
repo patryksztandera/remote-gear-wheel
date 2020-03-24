@@ -32,7 +32,7 @@ class Gear {
                 this.direction = "L"; //left
             }
             else {
-                this.direction = "rolka w spoczynku"; //roll at rest (velocity = 0)
+                this.direction = "roll at rest"; // (velocity = 0)
             }
      }
 

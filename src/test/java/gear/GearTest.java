@@ -20,6 +20,6 @@ public class GearTest {
     @Test
     public void shouldReturnNoDirection(){
         Gear gear = new Gear(1,1,1,1,0);
-        assertEquals("rolka w spoczynku",gear.direction);
+        assertEquals("roll at rest",gear.direction);
     }
 }

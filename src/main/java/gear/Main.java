@@ -16,26 +16,26 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        String inputFilePath = "daneWejsciowe.json";
-        String outputFilePath = "daneWyjsciowe.json";
+        String inputFilePath = "inputData.json";
+        String outputFilePath = "outputData.json";
         PrintWriter clearFile = new PrintWriter(outputFilePath);
         clearFile.close();
 
-        String arrayOfGears = "uklady";
+        String arrayOfGears = "gears";
 
         Parser parse = new Parser();
 
         parse.setInputPathFile(inputFilePath);
 
         parse.setArrayOfGears(arrayOfGears);
-        parse.setRegexDrive("naped");
-        parse.setRegexRoller("rolki");
+        parse.setRegexDrive("drive");
+        parse.setRegexRoller("rollers");
 
         parse.setCoordinateX("x");
         parse.setCoordinateY("y");
-        parse.setBottomRadius("rd");
-        parse.setTopRadius("rg");
-        parse.setVelocity("n");
+        parse.setBottomRadius("rb");
+        parse.setTopRadius("rt");
+        parse.setVelocity("v");
 
         int arraySize;
 

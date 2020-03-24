@@ -40,7 +40,7 @@ class Result {
                     }
                 }
                 if (gears[j].direction == null) {
-                    gears[j].setDirection("rolka w spoczynku"); //roll at rest
+                    gears[j].setDirection("roller at rest"); //roll at rest
                 }
             }
         }
@@ -62,7 +62,7 @@ class Result {
 
                     if (velocityRatio != ratioD) {
                         test = 1;
-                        errorVelocity = "konflikt predkosci obrotowych rolek";
+                        errorVelocity = "roller velocity conflict";
                     }
                 }
                 if (sumTopRadius(i,j) == distance(i,j)) {
@@ -76,12 +76,12 @@ class Result {
 
                     if (velocityRatio != ratioG) {
                         test = 1;
-                        errorVelocity = "konflikt predkosci obrotowych rolek";
+                        errorVelocity = "roller velocity conflict";
                     }
                 }
                 if (sumBottomRadius(i, j) > distance(i, j) || sumTopRadius(i, j) > distance(i, j)) {
                     test = 1;
-                    errorOverlapping = "nakladajace sie tarcze";
+                    errorOverlapping = "overlapping wheels";
                 }
             }
         }
@@ -109,7 +109,7 @@ class Result {
 
             if (j == 0){
                 decorWriter.append("{");
-                decorWriter.append("\n"+repeatString(indent,1)+"\"uklady\": ["); //"gears":
+                decorWriter.append("\n"+repeatString(indent,1)+"\"gears\": ["); //"gears":
                 decorWriter.flush();
             }
 
@@ -137,15 +137,15 @@ class Result {
             writer.append("\n"+repeatString(indent,2)+"{");
             if (test != 0) {
                 if (errorOverlapping != null) {
-                    writer.append("\n"+repeatString(indent,3)+"\"blad\": \""+errorOverlapping+"\""); //"error":
+                    writer.append("\n"+repeatString(indent,3)+"\"error\": \""+errorOverlapping+"\"");
                 } else if (errorVelocity != null) {
-                    writer.append("\n"+repeatString(indent,3)+"\"blad\": \""+errorVelocity+"\""); //"error":
+                    writer.append("\n"+repeatString(indent,3)+"\"error\": \""+errorVelocity+"\"");
                 }
             }
 
-            // create gear table with velocity and direction of each roll or show warning "roll at rest"
+            // create gear table with velocity and direction of each roll or show warning "roller at rest"
             else {
-                writer.append("\n"+repeatString(indent,3)+"\"rolki\": [");
+                writer.append("\n"+repeatString(indent,3)+"\"rollers\": [");
 
                 for (int i = 0; i < gears.length; i++) {
 
@@ -155,8 +155,8 @@ class Result {
                         writer.append("\n"+repeatString(indent,5)+"\"n\": " + gears[i].velocity);
                     } else {
                         writer.append("\n"+repeatString(indent,4)+"{ ");
-                        writer.append("\n"+repeatString(indent,5)+ "\"ostrzezenie\": \""
-                                +gears[i].direction+"\""); //"warning":
+                        writer.append("\n"+repeatString(indent,5)+ "\"warning\": \""
+                                +gears[i].direction+"\"");
                     }
 
                     if (i == gears.length-1){
